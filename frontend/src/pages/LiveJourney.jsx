@@ -1,5 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import MapView from "../components/MapView";
+
 import {
   createJourney,
   assignVehicle,
@@ -33,6 +35,8 @@ export default function LiveJourney() {
       <button onClick={nextStep}>
         Simulate Progress / Failure
       </button>
+      <MapView source={source} destination={destination} />
+
 
       <p>
         (This button simulates travel & reassignment logic)

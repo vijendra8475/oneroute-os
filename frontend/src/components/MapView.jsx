@@ -1,4 +1,9 @@
-import { GoogleMap, LoadScript, Polyline } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  Polyline,
+  LoadScript,
+} from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 const containerStyle = {
@@ -6,29 +11,16 @@ const containerStyle = {
   height: "400px",
 };
 
-const path = [
-  { lat: 21.2514, lng: 81.6296 },
-  { lat: 21.245, lng: 81.632 },
-  { lat: 21.238, lng: 81.638 },
-];
+export default function MapView({ source, destination }) {
+  const center = { lat: 21.2514, lng: 81.6296 }; // Bhilai (safe default)
 
-const LIBRARIES = ["marker"];
+  const path = [
+    { lat: 21.2514, lng: 81.6296 },
+    { lat: 21.24, lng: 81.63 },
+    { lat: 21.23, lng: 81.64 },
+  ];
 
-export default function MapView() {
-  const [map, setMap] = useState(null);
   const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (!map || !window.google) return;
-
-    const marker = new window.google.maps.marker.AdvancedMarkerElement({
-      map,
-      position: path[index],
-      content: document.createTextNode("🚖"),
-    });
-
-    return () => (marker.map = null);
-  }, [map, index]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,16 +31,13 @@ export default function MapView() {
   }, []);
 
   return (
-    <LoadScript
-      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_KEY}
-      libraries={LIBRARIES}
-    >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={path[0]}
-        zoom={14}
-        onLoad={(map) => setMap(map)}
-      >
+    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_KEY}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={13}>
+        <Marker position={path[0]} label="A" />
+        <Marker position={path[path.length - 1]} label="B" />
+        <Marker position={path[index]} label="🚖" />
+
+
         <Polyline
           path={path}
           options={{
