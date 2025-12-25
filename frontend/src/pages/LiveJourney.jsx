@@ -1,26 +1,42 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  createJourney,
+  assignVehicle,
+  simulateProgress,
+} from "../services/journeyEngine";
 
 export default function LiveJourney() {
   const location = useLocation();
-  const navigate = useNavigate();
-
   const { source, destination } = location.state || {};
+  const [journeyId, setJourneyId] = useState(null);
 
-  if (!source || !destination) {
-    return <h2>No journey found</h2>;
-  }
+  useEffect(() => {
+    async function start() {
+      const id = await createJourney(source, destination);
+      setJourneyId(id);
+      await assignVehicle(id);
+    }
+    start();
+  }, []);
+
+  const nextStep = async () => {
+    await simulateProgress(journeyId);
+    alert("State updated. Check Firestore!");
+  };
 
   return (
     <div style={{ padding: "40px" }}>
       <h2>Live Journey</h2>
-      <p><b>From:</b> {source}</p>
-      <p><b>To:</b> {destination}</p>
+      <p>Journey ID: {journeyId}</p>
 
-      <p>Current State: Assigning transport...</p>
-
-      <button onClick={() => navigate("/summary")}>
-        End Journey (Demo)
+      <button onClick={nextStep}>
+        Simulate Progress / Failure
       </button>
+
+      <p>
+        (This button simulates travel & reassignment logic)
+      </p>
     </div>
   );
 }
