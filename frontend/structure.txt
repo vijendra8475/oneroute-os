@@ -1,0 +1,18 @@
+oneroute-os/
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── Login.jsx
+│   │   │   ├── JourneySetup.jsx
+│   │   │   ├── LiveJourney.jsx
+│   │   │   └── Summary.jsx
+│   │   ├── components/
+│   │   │   ├── MapView.jsx
+│   │   │   ├── StateCard.jsx
+│   │   │   └── ReassignAlert.jsx
+│   │   ├── services/
+│   │   │   ├── maps.js
+│   │   │   ├── journeyEngine.js
+│   │   │   └── gemini.js
+│   │   └── firebase.js
+│   └── index.html
