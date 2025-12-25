@@ -1,0 +1,27 @@
+{
+  "journeyId": "JR123",
+  "currentState": 1,
+  "states": [
+    {
+      "type": "LOCAL_TRANSPORT",
+      "from": "Home",
+      "to": "Source Station",
+      "vehicle": "Auto",
+      "status": "COMPLETED"
+    },
+    {
+      "type": "TRAIN",
+      "from": "Source Station",
+      "to": "Destination Station",
+      "vehicle": "Train",
+      "status": "IN_PROGRESS"
+    },
+    {
+      "type": "LOCAL_TRANSPORT",
+      "from": "Destination Station",
+      "to": "Final Destination",
+      "vehicle": "Bike",
+      "status": "PENDING"
+    }
+  ]
+}

@@ -1,10 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { auth } from "./firebase";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+console.log("Firebase Auth:", auth);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <h1>OneRoute OS – Firebase Connected</h1>
+);
